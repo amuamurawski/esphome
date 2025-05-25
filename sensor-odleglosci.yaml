@@ -1,0 +1,45 @@
+esphome:
+  name: sensor-odleglosci-x00123
+  friendly_name: sensor_odleglosci
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "08kvUSQmcw/y98c39oinFeTShvTc5PO9r4fh3XyGUMk="
+
+ota:
+  - platform: esphome
+    password: "e23b22be12f2ebe7331192c48d8b6e6d"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Sensor-Odleglosci"
+    password: "t2MFeaicuqaQ"
+
+sensor:
+  - platform: ultrasonic
+    trigger_pin: GPIO18
+    echo_pin: GPIO5
+    name: "Sensor odległości"
+  - platform: dht
+    pin: GPIO17
+    temperature:
+      name: "Living Room Temperature"
+    humidity:
+      name: "Living Room Humidity"
+    update_interval: 60s
+
+
+captive_portal:
