@@ -1,6 +1,6 @@
 # ESPHome Configurations
 
-To repozytorium zawiera moje własne konfiguracje i rozwiązania oparte na [ESPHome](https://esphome.io/).
+To repozytorium zawiera moje konfiguracje i rozwiązania oparte na [ESPHome](https://esphome.io/).
 
 Wrzucam tutaj moje kody konfiguracyjne i projekty, które wykorzystuję do automatyzacji domu przy użyciu ESP32/ESP8266 i Home Assistant. Znajdziesz tu m.in.:
 - konfiguracje YAML dla urządzeń,
