@@ -197,7 +197,7 @@ binary_sensor:
       number: GPIO39
       inverted: true
     name: Button
-    disabled_by_default: true
+    #disabled_by_default: true
     entity_category: diagnostic
     id: echo_button
     on_multi_click:
@@ -216,7 +216,6 @@ binary_sensor:
           - ON for at least 10s
         then:
           - button.press: factory_reset_btn
-
 light:
   - platform: esp32_rmt_led_strip
     id: led

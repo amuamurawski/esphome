@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "../artur_smietnik"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../homeassistant"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.yaml": "home-assistant"
+		}
+	}
+}
