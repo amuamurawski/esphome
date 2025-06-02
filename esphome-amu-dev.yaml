@@ -29,6 +29,12 @@ wifi:
 
 captive_portal:
 
+i2c:
+  - id: bus_1
+    sda: 21
+    scl: 22
+    scan: False
+
 interval:
   - interval: 1s
     then:
@@ -81,6 +87,7 @@ sensor:
   id: wifi_signal_db
   update_interval: 60s
   entity_category: "diagnostic"
+
 - platform: copy # Reports the WiFi signal strength in %
   source_id: wifi_signal_db
   name: "WiFi Signal Percent"
@@ -88,10 +95,13 @@ sensor:
     - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
   unit_of_measurement: "Signal %"
   entity_category: "diagnostic"
+
 - platform: uptime
   name: Uptime
+
 - platform: internal_temperature
   name: "Internal Temperature"
+
 - platform: dht
   pin: 26
   model: DHT11 
@@ -100,6 +110,7 @@ sensor:
   humidity:
     name: "Room Humidity"
   update_interval: 60s
+
 - platform: adc
   pin: 32
   name: "Skylight Illuminance"
@@ -109,6 +120,20 @@ sensor:
   filters:
     - lambda: |-
         return (x / 10000.0) * 2000000.0;
+
+- platform: bh1750
+  i2c_id: bus_1
+  name: "Outside Light Level"
+  address: 0x23
+  update_interval: 1s
+  filters:
+    - sliding_window_moving_average:
+        window_size: 10
+        send_every: 10
+        send_first_at: 1
+    - or:
+        - throttle: 60s
+        - delta: 5
 
 
 number:
@@ -202,6 +227,9 @@ cover:
     has_position: false
 
 binary_sensor:
+  - platform: status
+    name: "Lux Sensor Status"
+
   - platform: gpio
     pin: GPIO35
     name: "PIR Sensor"
@@ -246,3 +274,8 @@ light:
     pin: GPIO16
     num_leds: 1
     internal: true
+
+
+switch:
+  - platform: restart
+    name: "Restart urządzenia"
